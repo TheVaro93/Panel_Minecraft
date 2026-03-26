@@ -1,0 +1,25 @@
+{
+  "name": "pannel_du_seigneur_gras",
+  "version": "1.0.0",
+  "description": "This project is under MIT License, for more information, see [LICENSE](LICENSE)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheVaro93/Pannel_du_seigneur_Gras.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TheVaro93/Pannel_du_seigneur_Gras/issues"
+  },
+  "homepage": "https://github.com/TheVaro93/Pannel_du_seigneur_Gras#readme",
+  "dependencies": {
+    "node-pty": "^1.1.0",
+    "ws": "^8.20.0"
+  }
+}
