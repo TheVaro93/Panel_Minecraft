@@ -53,6 +53,17 @@ function handleMessage(msg) {
   if (msg.type === "log") {
     appendLog(msg.text);
     parsePlayerEvents(msg.text);
+    return;
+  }
+
+  if (msg.type === "playerList") {
+    players = Array.isArray(msg.players) ? msg.players : [];
+    renderPlayers();
+
+    const modal = document.getElementById("player-modal");
+    if (modal && modal.style.display === "flex" && currentAction) {
+      openPlayerSelect(currentAction);
+    }
   }
 }
 
@@ -95,9 +106,11 @@ function parsePlayerEvents(text) {
 
 function renderPlayers() {
   const list = document.getElementById("player-list");
+  const plainList = document.getElementById("playerList");
 
   if (players.length === 0) {
     list.innerHTML = '<div id="no-players">Aucun joueur connecte</div>';
+    if (plainList) plainList.innerHTML = "";
     return;
   }
 
@@ -110,6 +123,12 @@ function renderPlayers() {
       </div>
     </div>
   `).join("");
+
+  if (plainList) {
+    plainList.innerHTML = players
+      .map((name) => `<li>${name}</li>`)
+      .join("");
+  }
 }
 
 function openPlayerSelect(action, playerName = null) {

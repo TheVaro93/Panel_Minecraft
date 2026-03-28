@@ -69,6 +69,60 @@ const httpServer = http.createServer((req, res) => {
 // node-pty simule un vrai terminal (stdin/stdout)
 // ============================================================
 let bdsPty = null; // On stocke le processus BDS ici
+let playerListInterval = null;
+
+function clearPlayerListInterval() {
+  if (playerListInterval) {
+    clearInterval(playerListInterval);
+    playerListInterval = null;
+  }
+}
+
+function startPlayerListPolling() {
+  if (playerListInterval) return;
+  playerListInterval = setInterval(() => {
+    requestPlayerList();
+  }, 5000);
+}
+
+function requestPlayerList() {
+  if (!bdsPty) return;
+  // Bedrock accepte la commande sans slash en console.
+  bdsPty.write("list\r");
+}
+
+function extractPlayersFromListResponse(data) {
+  if (!data || !data.toLowerCase().includes("players online")) {
+    return null;
+  }
+
+  const line = data
+    .split(/\r?\n/)
+    .map((chunk) => chunk.trim())
+    .find((chunk) => /players online/i.test(chunk));
+
+  if (!line) return null;
+
+  const match = line.match(/players online:\s*(.*)$/i);
+  if (!match) return null;
+
+  const rawNames = (match[1] || "").trim();
+  if (!rawNames) return [];
+
+  return rawNames
+    .split(",")
+    .map((name) => name.trim())
+    .filter(Boolean);
+}
+
+function broadcastPlayerList(players) {
+  const message = JSON.stringify({ type: "playerList", players });
+  clients.forEach((client) => {
+    if (client.readyState === 1) {
+      client.send(message);
+    }
+  });
+}
 
 function startBDS() {
   console.log("[Panel] Démarrage de BDS...");
@@ -100,14 +154,24 @@ function startBDS() {
   // Quand BDS écrit quelque chose dans sa console → on le stocke
   bdsPty.onData((data) => {
     broadcastLog(data); // On envoie à tous les navigateurs connectés
+
+    const players = extractPlayersFromListResponse(data);
+    if (players) {
+      broadcastPlayerList(players);
+    }
   });
 
   // Si BDS s'arrête (crash ou stop)
   bdsPty.onExit(({ exitCode }) => {
     console.log(`[Panel] BDS s'est arrêté (code ${exitCode})`);
     broadcastLog(`\n[Panel] BDS arrêté (code ${exitCode})\n`);
+    clearPlayerListInterval();
+    broadcastPlayerList([]);
     bdsPty = null;
   });
+
+  requestPlayerList();
+  startPlayerListPolling();
 }
 
 // ============================================================
@@ -153,6 +217,7 @@ wss.on("connection", (ws) => {
 
         // Si BDS tourne pas encore, on le lance
         if (!bdsPty) startBDS();
+        requestPlayerList();
       } else {
         ws.send(JSON.stringify({ type: "auth", success: false }));
         console.log("[Panel] Mauvais mot de passe");
