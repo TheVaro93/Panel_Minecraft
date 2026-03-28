@@ -12,6 +12,7 @@ const fs = require("fs");            // Pour lire des fichiers (index.html)
 const path = require("path");        // Pour gérer les chemins de fichiers
 const { WebSocketServer } = require("ws");   // Bibliothèque WebSocket
 const pty = require("node-pty");     // Pour lancer BDS comme un vrai terminal
+<<<<<<< HEAD
 
 // ============================================================
 // CONFIGURATION — Modifie ces valeurs selon ton setup
@@ -22,6 +23,34 @@ const CONFIG = {
   bdsPath: "C:\\Serveur_Minecraft\\Minecraft-Server\\bedrock_server.exe", // Chemin vers ton BDS.exe — À CHANGER
 };
 
+=======
+require("dotenv").config();          // Charge les variables d'environnement depuis .env
+
+// ============================================================
+// CONFIGURATION — Via variables d'environnement (.env)
+// ============================================================
+const CONFIG = {
+  port: Number(process.env.PORT || 3000),
+  password: process.env.PANEL_PASSWORD,
+  bdsPath: process.env.BDS_PATH,
+};
+
+if (!CONFIG.password) {
+  console.error("[Panel] Variable manquante: PANEL_PASSWORD");
+  process.exit(1);
+}
+
+if (!CONFIG.bdsPath) {
+  console.error("[Panel] Variable manquante: BDS_PATH");
+  process.exit(1);
+}
+
+if (!Number.isInteger(CONFIG.port) || CONFIG.port < 1 || CONFIG.port > 65535) {
+  console.error("[Panel] PORT invalide: utilise un entier entre 1 et 65535");
+  process.exit(1);
+}
+
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 // ============================================================
 // SERVEUR HTTP — Sert le fichier index.html quand on visite
 //               http://localhost:3000 dans le navigateur
@@ -53,6 +82,63 @@ const httpServer = http.createServer((req, res) => {
 // node-pty simule un vrai terminal (stdin/stdout)
 // ============================================================
 let bdsPty = null; // On stocke le processus BDS ici
+<<<<<<< HEAD
+=======
+let playerListInterval = null;
+
+function clearPlayerListInterval() {
+  if (playerListInterval) {
+    clearInterval(playerListInterval);
+    playerListInterval = null;
+  }
+}
+
+function startPlayerListPolling() {
+  if (playerListInterval) return;
+  playerListInterval = setInterval(() => {
+    requestPlayerList();
+  }, 5000);
+}
+
+function requestPlayerList() {
+  if (!bdsPty) return;
+  // Bedrock accepte la commande sans slash en console.
+  bdsPty.write("list\r");
+}
+
+function extractPlayersFromListResponse(data) {
+  if (!data || !data.toLowerCase().includes("players online")) {
+    return null;
+  }
+
+  const line = data
+    .split(/\r?\n/)
+    .map((chunk) => chunk.trim())
+    .find((chunk) => /players online/i.test(chunk));
+
+  if (!line) return null;
+
+  const match = line.match(/players online:\s*(.*)$/i);
+  if (!match) return null;
+
+  const rawNames = (match[1] || "").trim();
+  if (!rawNames) return [];
+
+  return rawNames
+    .split(",")
+    .map((name) => name.trim())
+    .filter(Boolean);
+}
+
+function broadcastPlayerList(players) {
+  const message = JSON.stringify({ type: "playerList", players });
+  clients.forEach((client) => {
+    if (client.readyState === 1) {
+      client.send(message);
+    }
+  });
+}
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 
 function startBDS() {
   console.log("[Panel] Démarrage de BDS...");
@@ -84,14 +170,32 @@ function startBDS() {
   // Quand BDS écrit quelque chose dans sa console → on le stocke
   bdsPty.onData((data) => {
     broadcastLog(data); // On envoie à tous les navigateurs connectés
+<<<<<<< HEAD
+=======
+
+    const players = extractPlayersFromListResponse(data);
+    if (players) {
+      broadcastPlayerList(players);
+    }
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
   });
 
   // Si BDS s'arrête (crash ou stop)
   bdsPty.onExit(({ exitCode }) => {
     console.log(`[Panel] BDS s'est arrêté (code ${exitCode})`);
     broadcastLog(`\n[Panel] BDS arrêté (code ${exitCode})\n`);
+<<<<<<< HEAD
     bdsPty = null;
   });
+=======
+    clearPlayerListInterval();
+    broadcastPlayerList([]);
+    bdsPty = null;
+  });
+
+  requestPlayerList();
+  startPlayerListPolling();
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 }
 
 // ============================================================
@@ -137,6 +241,10 @@ wss.on("connection", (ws) => {
 
         // Si BDS tourne pas encore, on le lance
         if (!bdsPty) startBDS();
+<<<<<<< HEAD
+=======
+        requestPlayerList();
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
       } else {
         ws.send(JSON.stringify({ type: "auth", success: false }));
         console.log("[Panel] Mauvais mot de passe");
@@ -182,11 +290,17 @@ wss.on("connection", (ws) => {
     console.log("[Panel] Client déconnecté");
   });
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 // ============================================================
 // DÉMARRAGE — On lance le serveur HTTP sur le port 3000
 // ============================================================
 httpServer.listen(CONFIG.port, () => {
   console.log(`[Panel] App disponible sur http://localhost:${CONFIG.port}`);
+<<<<<<< HEAD
   console.log(`[Panel] Mot de passe: ${CONFIG.password}`);
+=======
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 });

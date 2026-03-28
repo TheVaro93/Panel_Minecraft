@@ -43,10 +43,15 @@ function handleMessage(msg) {
     if (msg.success) {
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("app").style.display = "flex";
+<<<<<<< HEAD
       document.body.classList.add("logged-in");
       setStatus(true, "Connecte");
     } else {
       document.body.classList.remove("logged-in");
+=======
+      setStatus(true, "Connecte");
+    } else {
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
       showLoginError("Mot de passe incorrect");
     }
     return;
@@ -55,6 +60,20 @@ function handleMessage(msg) {
   if (msg.type === "log") {
     appendLog(msg.text);
     parsePlayerEvents(msg.text);
+<<<<<<< HEAD
+=======
+    return;
+  }
+
+  if (msg.type === "playerList") {
+    players = Array.isArray(msg.players) ? msg.players : [];
+    renderPlayers();
+
+    const modal = document.getElementById("player-modal");
+    if (modal && modal.style.display === "flex" && currentAction) {
+      openPlayerSelect(currentAction);
+    }
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
   }
 }
 
@@ -97,9 +116,17 @@ function parsePlayerEvents(text) {
 
 function renderPlayers() {
   const list = document.getElementById("player-list");
+<<<<<<< HEAD
 
   if (players.length === 0) {
     list.innerHTML = '<div id="no-players">Aucun joueur connecte</div>';
+=======
+  const plainList = document.getElementById("playerList");
+
+  if (players.length === 0) {
+    list.innerHTML = '<div id="no-players">Aucun joueur connecte</div>';
+    if (plainList) plainList.innerHTML = "";
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
     return;
   }
 
@@ -107,11 +134,49 @@ function renderPlayers() {
     <div class="player-card">
       <span class="player-name">${name}</span>
       <div class="player-actions">
+<<<<<<< HEAD
         <button class="btn-kick" onclick="openPlayerSelect('kick', '${name}')">Kick</button>
         <button class="btn-ban" onclick="openPlayerSelect('ban', '${name}')">Ban</button>
       </div>
     </div>
   `).join("");
+=======
+        <button class="btn-kick" onclick='sendAction("kick", ${JSON.stringify(name)})'>Kick</button>
+        <button class="btn-ban" onclick='sendAction("ban", ${JSON.stringify(name)})'>Ban</button>
+        <button class="btn-kill" onclick='sendAction("kill", ${JSON.stringify(name)})'>Kill</button>
+      </div>
+    </div>
+  `).join("");
+
+  if (plainList) {
+    plainList.innerHTML = players
+      .map((name) => `<li>${name}</li>`)
+      .join("");
+  }
+}
+
+function sendAction(action, player) {
+  if (!ws) return;
+  if (!confirm(`Confirmer ${action} sur ${player} ?`)) return;
+
+  let command = "";
+  if (action === "ban") {
+    command = `/ban ${player}`;
+    players = players.filter((p) => p !== player);
+    renderPlayers();
+  } else if (action === "kick") {
+    command = `/kick ${player}`;
+  } else if (action === "kill") {
+    command = `/kill ${player}`;
+  } else {
+    return;
+  }
+
+  ws.send(JSON.stringify({
+    type: "command",
+    command
+  }));
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 }
 
 function openPlayerSelect(action, playerName = null) {
@@ -143,6 +208,7 @@ function closePlayerModal() {
 
 function executeAction(action, playerName) {
   closePlayerModal();
+<<<<<<< HEAD
   
   if (action === "ban") {
     if (!confirm(`Bannir définitivement ${playerName} ?`)) return;
@@ -156,6 +222,10 @@ function executeAction(action, playerName) {
     if (!confirm(`Tuer ${playerName} ?`)) return;
     ws.send(JSON.stringify({ type: "command", command: `/kill "${playerName}"` }));
   }
+=======
+
+  sendAction(action, playerName);
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 }
 
 function sendCommand() {
@@ -188,7 +258,10 @@ function sendRawCommand() {
   line.textContent = `> ${command}`;
   document.getElementById("console").appendChild(line);
   document.getElementById("console").scrollTop = 99999;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
   input.value = "";
 }
 
