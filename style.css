@@ -393,6 +393,13 @@ button:hover {
   font-size: 0.75rem;
 }
 
+.btn-kill {
+  background: linear-gradient(180deg, #de7df1, #bb54d4);
+  color: #fff2ff;
+  padding: 7px 9px;
+  font-size: 0.75rem;
+}
+
 .btn-ban,
 .btn-action.ban,
 .btn-action.kill {

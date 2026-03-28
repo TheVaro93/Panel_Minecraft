@@ -118,8 +118,9 @@ function renderPlayers() {
     <div class="player-card">
       <span class="player-name">${name}</span>
       <div class="player-actions">
-        <button class="btn-kick" onclick="openPlayerSelect('kick', '${name}')">Kick</button>
-        <button class="btn-ban" onclick="openPlayerSelect('ban', '${name}')">Ban</button>
+        <button class="btn-kick" onclick='sendAction("kick", ${JSON.stringify(name)})'>Kick</button>
+        <button class="btn-ban" onclick='sendAction("ban", ${JSON.stringify(name)})'>Ban</button>
+        <button class="btn-kill" onclick='sendAction("kill", ${JSON.stringify(name)})'>Kill</button>
       </div>
     </div>
   `).join("");
@@ -129,6 +130,29 @@ function renderPlayers() {
       .map((name) => `<li>${name}</li>`)
       .join("");
   }
+}
+
+function sendAction(action, player) {
+  if (!ws) return;
+  if (!confirm(`Confirmer ${action} sur ${player} ?`)) return;
+
+  let command = "";
+  if (action === "ban") {
+    command = `/ban ${player}`;
+    players = players.filter((p) => p !== player);
+    renderPlayers();
+  } else if (action === "kick") {
+    command = `/kick ${player}`;
+  } else if (action === "kill") {
+    command = `/kill ${player}`;
+  } else {
+    return;
+  }
+
+  ws.send(JSON.stringify({
+    type: "command",
+    command
+  }));
 }
 
 function openPlayerSelect(action, playerName = null) {
@@ -160,19 +184,8 @@ function closePlayerModal() {
 
 function executeAction(action, playerName) {
   closePlayerModal();
-  
-  if (action === "ban") {
-    if (!confirm(`Bannir définitivement ${playerName} ?`)) return;
-    ws.send(JSON.stringify({ type: "ban", player: playerName }));
-    players = players.filter((p) => p !== playerName);
-    renderPlayers();
-  } else if (action === "kick") {
-    if (!confirm(`Expulser ${playerName} ?`)) return;
-    ws.send(JSON.stringify({ type: "kick", player: playerName, reason: "Kicked by admin" }));
-  } else if (action === "kill") {
-    if (!confirm(`Tuer ${playerName} ?`)) return;
-    ws.send(JSON.stringify({ type: "command", command: `/kill "${playerName}"` }));
-  }
+
+  sendAction(action, playerName);
 }
 
 function sendCommand() {
