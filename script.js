@@ -96,14 +96,9 @@ function renderPlayers() {
     <div class="player-card">
       <span class="player-name">🎮 ${name}</span>
       <div class="player-actions">
-<<<<<<< HEAD
         <button class="btn-kick" onclick="sendAction('kick', '${name}')">Kick</button>
         <button class="btn-ban" onclick="sendAction('ban', '${name}')">Ban</button>
         <button class="btn-kill" onclick="sendAction('kill', '${name}')">Kill</button>
-=======
-        <button class="btn-kick" onclick="kickPlayer('${name}')">Kick</button>
-        <button class="btn-ban" onclick="banPlayer('${name}')">Ban</button>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
       </div>
     </div>
   `).join("");
@@ -113,10 +108,7 @@ function sendCommand() {
   const input = document.getElementById("cmd-input");
   const command = input.value.trim();
   if (!command || !ws) return;
-<<<<<<< HEAD
 
-=======
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
   ws.send(JSON.stringify({ type: "command", command }));
 
   const line = document.createElement("div");
@@ -128,7 +120,6 @@ function sendCommand() {
   input.value = "";
 }
 
-<<<<<<< HEAD
 function sendAction(action, player) {
   if (!ws) {
     alert("Non connecté au serveur");
@@ -168,45 +159,11 @@ function sendAction(action, player) {
   line.textContent = `> ${command}`;
   document.getElementById("console").appendChild(line);
   document.getElementById("console").scrollTop = 99999;
-=======
-function kickPlayer(name) {
-  if (!confirm(`Kick ${name} ?`)) return;
-  ws.send(JSON.stringify({ type: "kick", player: name, reason: "Kicked by admin" }));
-}
-
-function banPlayer(name) {
-  if (!confirm(`Bannir définitivement ${name} ?`)) return;
-  ws.send(JSON.stringify({ type: "ban", player: name }));
-  players = players.filter((p) => p !== name);
-  renderPlayers();
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 }
 
 function setStatus(online, text) {
   document.getElementById("status-dot").className = online ? "online" : "";
   document.getElementById("status-text").textContent = text;
-}
-<<<<<<< HEAD
-=======
-
-function banPlayer() {
-  const player = prompt("Quel joueur tu veux ban ?");
-  if (!player) return;
-
-  ws.send(JSON.stringify({
-    type: "command",
-    command: `ban ${player}`
-  }));
-}
-
-function kickPlayer() {
-  const player = prompt("Quel joueur tu veux kick ?");
-  if (!player) return;
-
-  ws.send(JSON.stringify({
-    type: "command",
-    command: `kick ${player}`
-  }));
 }
 
 function killPlayer() {
