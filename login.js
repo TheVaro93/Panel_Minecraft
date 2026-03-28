@@ -186,7 +186,6 @@ function sendRawCommand() {
   line.textContent = `> ${command}`;
   document.getElementById("console").appendChild(line);
   document.getElementById("console").scrollTop = 99999;
-
   input.value = "";
 }
 

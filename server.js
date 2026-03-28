@@ -182,7 +182,6 @@ wss.on("connection", (ws) => {
     console.log("[Panel] Client déconnecté");
   });
 });
-
 // ============================================================
 // DÉMARRAGE — On lance le serveur HTTP sur le port 3000
 // ============================================================

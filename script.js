@@ -107,7 +107,6 @@ function sendCommand() {
   const input = document.getElementById("cmd-input");
   const command = input.value.trim();
   if (!command || !ws) return;
-
   ws.send(JSON.stringify({ type: "command", command }));
 
   const line = document.createElement("div");
