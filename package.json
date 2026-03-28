@@ -1,10 +1,11 @@
 {
   "name": "pannel_du_seigneur_gras",
   "version": "1.0.0",
-  "description": "This project is under MIT License, for more information, see [LICENSE](LICENSE)",
-  "main": "index.js",
+  "description": "Panel web pour administrer un serveur Minecraft Bedrock",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/TheVaro93/Pannel_du_seigneur_Gras#readme",
   "dependencies": {
+    "dotenv": "^16.6.1",
     "node-pty": "^1.1.0",
     "ws": "^8.20.0"
   }

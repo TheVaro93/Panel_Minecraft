@@ -12,15 +12,31 @@ const fs = require("fs");            // Pour lire des fichiers (index.html)
 const path = require("path");        // Pour gérer les chemins de fichiers
 const { WebSocketServer } = require("ws");   // Bibliothèque WebSocket
 const pty = require("node-pty");     // Pour lancer BDS comme un vrai terminal
+require("dotenv").config();          // Charge les variables d'environnement depuis .env
 
 // ============================================================
-// CONFIGURATION — Modifie ces valeurs selon ton setup
+// CONFIGURATION — Via variables d'environnement (.env)
 // ============================================================
 const CONFIG = {
-  port: 3000,                        // Port de l'app web (http://localhost:3000)
-  password: "admin$$",               // Mot de passe pour accéder au panel
-  bdsPath: "C:\\Serveur_Minecraft\\Minecraft-Server\\bedrock_server.exe", // Chemin vers ton BDS.exe — À CHANGER
+  port: Number(process.env.PORT || 3000),
+  password: process.env.PANEL_PASSWORD,
+  bdsPath: process.env.BDS_PATH,
 };
+
+if (!CONFIG.password) {
+  console.error("[Panel] Variable manquante: PANEL_PASSWORD");
+  process.exit(1);
+}
+
+if (!CONFIG.bdsPath) {
+  console.error("[Panel] Variable manquante: BDS_PATH");
+  process.exit(1);
+}
+
+if (!Number.isInteger(CONFIG.port) || CONFIG.port < 1 || CONFIG.port > 65535) {
+  console.error("[Panel] PORT invalide: utilise un entier entre 1 et 65535");
+  process.exit(1);
+}
 
 // ============================================================
 // SERVEUR HTTP — Sert le fichier index.html quand on visite
@@ -187,5 +203,4 @@ wss.on("connection", (ws) => {
 // ============================================================
 httpServer.listen(CONFIG.port, () => {
   console.log(`[Panel] App disponible sur http://localhost:${CONFIG.port}`);
-  console.log(`[Panel] Mot de passe: ${CONFIG.password}`);
 });

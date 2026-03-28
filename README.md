@@ -54,23 +54,20 @@ cd Pannel_du_seigneur_Gras
 2. Installer les dépendances:
 
 ```bash
-npm install
+npm ci
 ```
 
-3. Configurer le backend dans `server.js`:
+3. Configurer les variables d'environnement:
 
-- `CONFIG.port`
-- `CONFIG.password`
-- `CONFIG.bdsPath`
+- Copier `.env.example` vers `.env`
+- Renseigner `PORT`, `PANEL_PASSWORD`, `BDS_PATH`
 
-Exemple:
+Exemple `.env`:
 
-```js
-const CONFIG = {
-	port: 3000,
-	password: "change-moi",
-	bdsPath: "C:\\Serveur_Minecraft\\Minecraft-Server\\bedrock_server.exe",
-};
+```env
+PORT=3000
+PANEL_PASSWORD=change-moi
+BDS_PATH=C:\\Serveur_Minecraft\\Minecraft-Server\\bedrock_server.exe
 ```
 
 ---
@@ -80,7 +77,7 @@ const CONFIG = {
 Option A (recommandée)
 
 ```bash
-node server.js
+npm run start
 ```
 
 Puis ouvrir:
@@ -124,23 +121,28 @@ Option B
 
 ## Sécurité
 
-Le mot de passe est actuellement défini en dur dans `server.js`.
+Le backend lit obligatoirement la configuration depuis `.env`.
 
-Pour un usage en production, il est conseillé de:
+Déjà appliqué dans ce projet:
 
-- utiliser une variable d'environnement pour le mot de passe
-- activer HTTPS + WSS
-- limiter l'accès au panel via firewall/VPN
-- journaliser les actions admin
+- mot de passe admin via variable d'environnement (`PANEL_PASSWORD`)
+- chemin BDS via variable d'environnement (`BDS_PATH`)
+- `.env` ignoré par Git
+
+À mettre en place selon ton infra:
+
+- HTTPS + WSS
+- limitation d'accès au panel via firewall/VPN
+- journalisation des actions admin
 
 ---
 
 ## Dépannage rapide
 
 - Erreur `BDS introuvable`:
-	vérifier le chemin `CONFIG.bdsPath`.
+	vérifier la variable `BDS_PATH` dans `.env`.
 - Échec de connexion:
-	vérifier que `node server.js` tourne bien et que le port n'est pas bloqué.
+	vérifier que `npm run start` tourne bien et que le port n'est pas bloqué.
 - Pas de logs dans la console:
 	vérifier que BDS démarre correctement et que `bedrock_server.exe` est exécutable.
 
@@ -152,7 +154,6 @@ Pour un usage en production, il est conseillé de:
 - historique des commandes admin
 - mode multi-serveurs
 - stats en temps réel (TPS, joueurs, uptime)
-- configuration via `.env`
 
 ---
 
