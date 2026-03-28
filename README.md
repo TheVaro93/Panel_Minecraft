@@ -2,31 +2,31 @@
 
 Panel web moderne pour administrer un serveur Minecraft Bedrock en direct.
 
-Ce projet connecte une interface web a la console BDS via WebSocket et permet de:
+Ce projet connecte une interface web à la console BDS via WebSocket et permet de:
 
-- visualiser les logs en temps reel
-- suivre les joueurs connectes
+- visualiser les logs en temps réel
+- suivre les joueurs connectés
 - envoyer des commandes
 - bannir, expulser ou tuer un joueur depuis l'interface
 
 ---
 
-## Apercu
+## Aperçu
 
-Le projet est compose de:
+Le projet est composé de:
 
 - un backend Node.js qui lance `bedrock_server.exe` avec `node-pty`
 - un serveur HTTP qui sert l'interface web
 - un serveur WebSocket pour l'authentification et les commandes en direct
-- un frontend HTML/CSS/JS avec ecran de connexion et console live
+- un frontend HTML/CSS/JS avec écran de connexion et console live
 
 ---
 
-## Fonctionnalites
+## Fonctionnalités
 
 - Authentification simple par mot de passe
 - Console live (stream des logs BDS)
-- Detection des connexions/deconnexions joueurs
+- Détection des connexions/déconnexions joueurs
 - Liste des joueurs en ligne
 - Actions admin rapides: `Kick`, `Ban`, `Kill`
 - Envoi de commandes brutes (console)
@@ -34,7 +34,7 @@ Le projet est compose de:
 
 ---
 
-## Prerequis
+## Prérequis
 
 - Windows
 - Node.js 18+
@@ -44,14 +44,14 @@ Le projet est compose de:
 
 ## Installation
 
-1. Cloner le depot:
+1. Cloner le dépôt:
 
 ```bash
 git clone https://github.com/TheVaro93/Pannel_du_seigneur_Gras.git
 cd Pannel_du_seigneur_Gras
 ```
 
-2. Installer les dependances:
+2. Installer les dépendances:
 
 ```bash
 npm install
@@ -77,7 +77,7 @@ const CONFIG = {
 
 ## Lancer le projet
 
-Option A (recommandee)
+Option A (recommandée)
 
 ```bash
 node server.js
@@ -89,7 +89,7 @@ Puis ouvrir:
 
 Option B
 
-- Lancer `start.bat` pour demarrer le serveur Node puis ouvrir automatiquement le navigateur.
+- Lancer `start.bat` pour démarrer le serveur Node puis ouvrir automatiquement le navigateur.
 
 ---
 
@@ -100,7 +100,7 @@ Option B
 3. Surveiller les logs et les joueurs en ligne.
 4. Utiliser:
 - la barre principale pour envoyer un message global (`say`)
-- la commande brute pour executer n'importe quelle commande Bedrock
+- la commande brute pour exécuter n'importe quelle commande Bedrock
 - les boutons d'action pour `Kick` / `Ban` / `Kill`
 
 ---
@@ -111,10 +111,10 @@ Option B
 .
 |- index.html      # Interface web
 |- style.css       # Styles
-|- login.js        # Logique frontend utilisee par index.html
-|- script.js       # Ancienne version (non chargee par index.html)
+|- login.js        # Logique frontend utilisée par index.html
+|- script.js       # Ancienne version (non chargée par index.html)
 |- server.js       # Backend HTTP + WebSocket + lancement BDS
-|- start.bat       # Script de demarrage Windows
+|- start.bat       # Script de démarrage Windows
 |- package.json
 |- LICENSE
 |- README.md
@@ -122,36 +122,36 @@ Option B
 
 ---
 
-## Securite
+## Sécurité
 
-Le mot de passe est actuellement defini en dur dans `server.js`.
+Le mot de passe est actuellement défini en dur dans `server.js`.
 
-Pour un usage en production, il est conseille de:
+Pour un usage en production, il est conseillé de:
 
 - utiliser une variable d'environnement pour le mot de passe
 - activer HTTPS + WSS
-- limiter l'acces au panel via firewall/VPN
+- limiter l'accès au panel via firewall/VPN
 - journaliser les actions admin
 
 ---
 
-## Depannage rapide
+## Dépannage rapide
 
 - Erreur `BDS introuvable`:
-	verifier le chemin `CONFIG.bdsPath`.
-- Echec de connexion:
-	verifier que `node server.js` tourne bien et que le port n'est pas bloque.
+	vérifier le chemin `CONFIG.bdsPath`.
+- Échec de connexion:
+	vérifier que `node server.js` tourne bien et que le port n'est pas bloqué.
 - Pas de logs dans la console:
-	verifier que BDS demarre correctement et que `bedrock_server.exe` est executable.
+	vérifier que BDS démarre correctement et que `bedrock_server.exe` est exécutable.
 
 ---
 
-## Roadmap (idees)
+## Roadmap (idées)
 
 - gestion des whitelist/permissions
 - historique des commandes admin
 - mode multi-serveurs
-- stats en temps reel (TPS, joueurs, uptime)
+- stats en temps réel (TPS, joueurs, uptime)
 - configuration via `.env`
 
 ---
