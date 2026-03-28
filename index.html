@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel du Seigneur Gras</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="login-screen">
+    <section class="login-card">
+      <span class="eyebrow">Admin Access</span>
+      <h1>Panel du Seigneur Gras</h1>
+      <p>Connexion securisee au panel de moderation Bedrock.</p>
+
+      <div class="input-wrap">
+        <input type="password" id="password-input" placeholder="Mot de passe" />
+      </div>
+      <button class="btn-primary" onclick="login()">Connexion</button>
+      <span id="login-error">Mot de passe incorrect</span>
+    </section>
+  </div>
+
+  <div id="app">
+    <header class="glass">
+      <div class="title-wrap">
+        <h1>Panel du Seigneur Gras</h1>
+        <p>Supervision en direct des joueurs/esclaves a ta pitié evan-desune et des logs serveur</p>
+      </div>
+      <div class="header-right">
+        <div id="status">
+          <div id="status-dot"></div>
+          <span id="status-text">Connexion...</span>
+        </div>
+        <div class="raw-command-wrap">
+          <input
+            type="text"
+            id="raw-cmd-input"
+            placeholder="Autre commande (brut)"
+            onkeydown="if(event.key==='Enter') sendRawCommand()"
+          />
+          <button class="btn-ghost" onclick="sendRawCommand()">Executer</button>
+        </div>
+        <div class="header-actions">
+          <button class="btn-action ban" onclick="openPlayerSelect('ban')">Ban</button>
+          <button class="btn-action kick" onclick="openPlayerSelect('kick')">Kick</button>
+          <button class="btn-action kill" onclick="openPlayerSelect('kill')">Kill</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Modal de sélection de joueur -->
+    <div id="player-modal" style="display: none;">
+      <div class="modal-overlay" onclick="closePlayerModal()"></div>
+      <div class="modal-content">
+        <h2 id="modal-title">Sélectionner un joueur</h2>
+        <div id="modal-player-list"></div>
+        <button class="btn-ghost" onclick="closePlayerModal()">Annuler</button>
+      </div>
+    </div>
+
+    <div class="shell">
+      <aside class="sidebar glass">
+        <div class="sidebar-title">Joueurs en ligne</div>
+        <div id="player-list">
+          <div id="no-players">Aucun joueur connecte</div>
+        </div>
+      </aside>
+
+      <section class="main glass">
+        <div class="main-head">
+          <div class="main-title">Console BDS</div>
+          <span class="chip">Live Feed</span>
+        </div>
+
+        <div id="console"></div>
+
+        <div class="command-bar">
+          <input
+            type="text"
+            id="cmd-input"
+            placeholder="Message global pour tous les joueurs"
+            onkeydown="if(event.key==='Enter') sendCommand()"
+          />
+          <button class="btn-primary" onclick="sendCommand()">Envoyer /say</button>
+          <button class="btn-ghost" onclick="clearConsole()">Effacer</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="login.js"></script>
+</body>
+</html>
