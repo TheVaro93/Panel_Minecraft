@@ -165,14 +165,3 @@ function setStatus(online, text) {
   document.getElementById("status-dot").className = online ? "online" : "";
   document.getElementById("status-text").textContent = text;
 }
-
-function killPlayer() {
-  const player = prompt("Quel joueur tu veux tuer ?");
-  if (!player) return;
-
-  ws.send(JSON.stringify({
-    type: "command",
-    command: `kill ${player}`
-  }));
-}
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
