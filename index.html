@@ -3,50 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
   <title>Panel du Seigneur Gras</title>
-=======
-  <title>Minecraft Admin Panel</title>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="login-screen">
     <section class="login-card">
-<<<<<<< HEAD
       <span class="eyebrow">Admin Access</span>
       <h1>Panel du Seigneur Gras</h1>
       <p>Connexion securisee au panel de moderation Bedrock.</p>
 
       <div class="input-wrap">
-        <input type="password" id="password-input" placeholder="Mot de passe" />
-      </div>
-      <button class="btn-primary" onclick="login()">Connexion</button>
-      <span id="login-error">Mot de passe incorrect</span>
-=======
-      <span class="eyebrow"><span class="mc-icon tiny"></span> Admin Access</span>
-      <h1>Minecraft Admin Panel</h1>
-      <p>Connexion securisee au panneau de moderation Bedrock.</p>
-
-      <div class="input-wrap">
         <input type="password" id="password-input" placeholder="Mot de passe administrateur" />
       </div>
       <button class="btn-primary" onclick="login()">Connexion</button>
-      <span id="login-error">Mot de passe invalide</span>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
+      <span id="login-error">Mot de passe incorrect</span>
     </section>
   </div>
 
   <div id="app">
     <header class="glass">
       <div class="title-wrap">
-<<<<<<< HEAD
         <h1>Panel du Seigneur Gras</h1>
-        <p>Supervision en direct des joueurs/esclaves a ta pitié evan-desune et des logs serveur</p>
-=======
-        <h1><span class="mc-icon"></span> Minecraft Control Panel</h1>
         <p>Supervision en direct des joueurs et des logs serveur</p>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
       </div>
       <div class="header-right">
         <div id="status">
@@ -70,11 +49,10 @@
       </div>
     </header>
 
-    <!-- Modal de sélection de joueur -->
-    <div id="player-modal" style="display: none;">
+    <div id="player-modal">
       <div class="modal-overlay" onclick="closePlayerModal()"></div>
       <div class="modal-content">
-        <h2 id="modal-title">Sélectionner un joueur</h2>
+        <h2 id="modal-title">Selectionner un joueur</h2>
         <div id="modal-player-list"></div>
         <button class="btn-ghost" onclick="closePlayerModal()">Annuler</button>
       </div>
@@ -82,15 +60,7 @@
 
     <div class="shell">
       <aside class="sidebar glass">
-<<<<<<< HEAD
         <div class="sidebar-title">Joueurs en ligne</div>
-=======
-        <div class="sidebar-title"><span class="mc-icon tiny"></span> Joueurs en ligne</div>
-        <div class="player-list-block">
-          <h3>Joueurs en ligne :</h3>
-          <ul id="playerList"></ul>
-        </div>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
         <div id="player-list">
           <div id="no-players">Aucun joueur connecte</div>
         </div>
@@ -98,19 +68,12 @@
 
       <section class="main glass">
         <div class="main-head">
-<<<<<<< HEAD
           <div class="main-title">Console BDS</div>
-=======
-          <div class="main-title"><span class="mc-icon tiny"></span> Console BDS</div>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
           <span class="chip">Live Feed</span>
         </div>
 
         <div id="console"></div>
-<<<<<<< HEAD
 
-=======
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
         <div class="command-bar">
           <input
             type="text"
@@ -118,20 +81,13 @@
             placeholder="Message global pour tous les joueurs"
             onkeydown="if(event.key==='Enter') sendCommand()"
           />
-<<<<<<< HEAD
           <button class="btn-primary" onclick="sendCommand()">Envoyer /say</button>
-=======
-          <button class="btn-primary" onclick="sendCommand()">Envoyer</button>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
           <button class="btn-ghost" onclick="clearConsole()">Effacer</button>
         </div>
       </section>
     </div>
   </div>
+
   <script src="login.js"></script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50

@@ -9,7 +9,8 @@ function showLoginError(text) {
 }
 
 function login() {
-  const password = document.getElementById("password-input").value;
+  const passwordInput = document.getElementById("password-input");
+  const password = passwordInput.value.trim();
   if (!password) return;
 
   const protocol = window.location.protocol === "https:" ? "wss" : "ws";
@@ -43,15 +44,10 @@ function handleMessage(msg) {
     if (msg.success) {
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("app").style.display = "flex";
-<<<<<<< HEAD
       document.body.classList.add("logged-in");
       setStatus(true, "Connecte");
     } else {
       document.body.classList.remove("logged-in");
-=======
-      setStatus(true, "Connecte");
-    } else {
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
       showLoginError("Mot de passe incorrect");
     }
     return;
@@ -60,8 +56,6 @@ function handleMessage(msg) {
   if (msg.type === "log") {
     appendLog(msg.text);
     parsePlayerEvents(msg.text);
-<<<<<<< HEAD
-=======
     return;
   }
 
@@ -73,7 +67,6 @@ function handleMessage(msg) {
     if (modal && modal.style.display === "flex" && currentAction) {
       openPlayerSelect(currentAction);
     }
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
   }
 }
 
@@ -116,67 +109,61 @@ function parsePlayerEvents(text) {
 
 function renderPlayers() {
   const list = document.getElementById("player-list");
-<<<<<<< HEAD
 
   if (players.length === 0) {
     list.innerHTML = '<div id="no-players">Aucun joueur connecte</div>';
-=======
-  const plainList = document.getElementById("playerList");
-
-  if (players.length === 0) {
-    list.innerHTML = '<div id="no-players">Aucun joueur connecte</div>';
-    if (plainList) plainList.innerHTML = "";
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
     return;
   }
 
-  list.innerHTML = players.map((name) => `
-    <div class="player-card">
-      <span class="player-name">${name}</span>
-      <div class="player-actions">
-<<<<<<< HEAD
-        <button class="btn-kick" onclick="openPlayerSelect('kick', '${name}')">Kick</button>
-        <button class="btn-ban" onclick="openPlayerSelect('ban', '${name}')">Ban</button>
-      </div>
-    </div>
-  `).join("");
-=======
-        <button class="btn-kick" onclick='sendAction("kick", ${JSON.stringify(name)})'>Kick</button>
-        <button class="btn-ban" onclick='sendAction("ban", ${JSON.stringify(name)})'>Ban</button>
-        <button class="btn-kill" onclick='sendAction("kill", ${JSON.stringify(name)})'>Kill</button>
-      </div>
-    </div>
-  `).join("");
-
-  if (plainList) {
-    plainList.innerHTML = players
-      .map((name) => `<li>${name}</li>`)
-      .join("");
-  }
+  list.innerHTML = players
+    .map((name) => {
+      const safeName = escapeHtml(name);
+      const nameJson = JSON.stringify(name);
+      return `
+        <div class="player-card">
+          <span class="player-name">${safeName}</span>
+          <div class="player-actions">
+            <button class="btn-kick" onclick='sendAction("kick", ${nameJson})'>Kick</button>
+            <button class="btn-ban" onclick='sendAction("ban", ${nameJson})'>Ban</button>
+            <button class="btn-kill" onclick='sendAction("kill", ${nameJson})'>Kill</button>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
 }
 
 function sendAction(action, player) {
   if (!ws) return;
-  if (!confirm(`Confirmer ${action} sur ${player} ?`)) return;
+
+  const prompts = {
+    kick: `Expulser ${player} ?`,
+    ban: `Bannir definitivement ${player} ?`,
+    kill: `Tuer ${player} ?`
+  };
+
+  if (!confirm(prompts[action] || `Confirmer ${action} sur ${player} ?`)) return;
 
   let command = "";
   if (action === "ban") {
-    command = `/ban ${player}`;
+    command = `/ban "${player}"`;
     players = players.filter((p) => p !== player);
     renderPlayers();
   } else if (action === "kick") {
-    command = `/kick ${player}`;
+    command = `/kick "${player}"`;
   } else if (action === "kill") {
-    command = `/kill ${player}`;
+    command = `/kill "${player}"`;
   } else {
     return;
   }
 
-  ws.send(JSON.stringify({
-    type: "command",
-    command
-  }));
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
+  ws.send(JSON.stringify({ type: "command", command }));
+
+  const line = document.createElement("div");
+  line.className = "log-line warn";
+  line.textContent = `> ${command}`;
+  document.getElementById("console").appendChild(line);
+  document.getElementById("console").scrollTop = 99999;
 }
 
 function openPlayerSelect(action, playerName = null) {
@@ -189,15 +176,20 @@ function openPlayerSelect(action, playerName = null) {
   const modal = document.getElementById("player-modal");
   const titles = { ban: "Bannir", kick: "Expulser", kill: "Tuer" };
   document.getElementById("modal-title").textContent = `${titles[action]} quel joueur ?`;
-  
+
   const modalList = document.getElementById("modal-player-list");
   if (players.length === 0) {
-    modalList.innerHTML = '<p>Aucun joueur connecté</p>';
+    modalList.innerHTML = "<p>Aucun joueur connecte</p>";
   } else {
-    modalList.innerHTML = players.map((name) => `
-      <button class="player-select-btn" onclick="executeAction('${action}', '${name}')">${name}</button>
-    `).join("");
+    modalList.innerHTML = players
+      .map((name) => {
+        const safeName = escapeHtml(name);
+        const nameJson = JSON.stringify(name);
+        return `<button class="player-select-btn" onclick='executeAction("${action}", ${nameJson})'>${safeName}</button>`;
+      })
+      .join("");
   }
+
   modal.style.display = "flex";
 }
 
@@ -208,24 +200,7 @@ function closePlayerModal() {
 
 function executeAction(action, playerName) {
   closePlayerModal();
-<<<<<<< HEAD
-  
-  if (action === "ban") {
-    if (!confirm(`Bannir définitivement ${playerName} ?`)) return;
-    ws.send(JSON.stringify({ type: "ban", player: playerName }));
-    players = players.filter((p) => p !== playerName);
-    renderPlayers();
-  } else if (action === "kick") {
-    if (!confirm(`Expulser ${playerName} ?`)) return;
-    ws.send(JSON.stringify({ type: "kick", player: playerName, reason: "Kicked by admin" }));
-  } else if (action === "kill") {
-    if (!confirm(`Tuer ${playerName} ?`)) return;
-    ws.send(JSON.stringify({ type: "command", command: `/kill "${playerName}"` }));
-  }
-=======
-
   sendAction(action, playerName);
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
 }
 
 function sendCommand() {
@@ -258,26 +233,20 @@ function sendRawCommand() {
   line.textContent = `> ${command}`;
   document.getElementById("console").appendChild(line);
   document.getElementById("console").scrollTop = 99999;
-<<<<<<< HEAD
 
-=======
->>>>>>> 5c631e825f97ba2ea4279f027a703f1d83f4fc50
   input.value = "";
-}
-
-function kickPlayer() {
-  openPlayerSelect("kick");
-}
-
-function banPlayer() {
-  openPlayerSelect("ban");
-}
-
-function killPlayer() {
-  openPlayerSelect("kill");
 }
 
 function setStatus(online, text) {
   document.getElementById("status-dot").className = online ? "online" : "";
   document.getElementById("status-text").textContent = text;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
