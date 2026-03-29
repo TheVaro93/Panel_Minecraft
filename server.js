@@ -306,4 +306,9 @@ httpServer.listen(currentPort, () => {
   if (!process.env.PANEL_PASSWORD) {
     console.log(`[Panel] Mot de passe par défaut: ${CONFIG.password}`);
   }
+  console.log("[Panel] --- Comment changer le mot de passe : ---");
+  console.log("[Panel] 1) Ouvrir server.js");
+  console.log(`[Panel] 2) Modifier DEFAULT_CONFIG.password (actuel: ${CONFIG.password})`);
+  console.log("[Panel] 3) Ou definir PANEL_PASSWORD dans .env");
+  console.log("[Panel] 4) Relancer le panel");
 });
