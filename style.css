@@ -32,9 +32,10 @@ body {
   position: relative;
   background:
     linear-gradient(rgba(208, 242, 255, 0.22), rgba(208, 242, 255, 0.22)),
-    url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstore-images.s-microsoft.com%2Fimage%2Fapps.60323.14294656681058683.4d17bdd8-7026-429a-846f-cf7836bc9e56.a69e6905-8926-4a48-b243-14a039b97aae%3Fmode%3Dscale%26q%3D90%26h%3D1080%26w%3D1920%26format%3Djpg&f=1&nofb=1&ipt=581eda375b135f97f7c27bbbdd2fa62e11a44d3cd87");
+    url("image.png"),
+    url("minecraftwpp.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto, cover, cover;
   background-position: center;
   overflow-x: hidden;
   overflow-y: auto;
@@ -79,13 +80,14 @@ body:not(.logged-in)::after {
 body.logged-in {
   background:
     linear-gradient(rgba(223, 246, 255, 0.18), rgba(223, 246, 255, 0.18)),
-    url("evwaw.png"),
+    url("image.png"),
+    url("minecraftwpp.png"),
     radial-gradient(280px 280px at 50% 6%, rgba(255, 225, 90, 0.9), rgba(255, 225, 90, 0.05) 72%),
-    radiahttps://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstore-images.s-microsoft.com%2Fimage%2Fapps.60323.14294656681058683.4d17bdd8-7026-429a-846f-cf7836bc9e56.a69e6905-8926-4a48-b243-14a039b97aae%3Fmode%3Dscale%26q%3D90%26h%3D1080%26w%3D1920%26format%3Djpg&f=1&nofb=1&ipt=581eda375b135f97f7c27bbbdd2fa62e11a44d3cd87t(900px 520px at 20% 15%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(900px 520px at 20% 15%, rgba(255, 255, 255, 0.5), transparent 70%),
     linear-gradient(180deg, var(--bg-1), var(--bg-2) 46%, var(--bg-3));
   background-repeat: no-repeat;
-  background-size: auto, cover, auto, auto, auto;
-  background-position: center, center, center top, 20% 15%, center;
+  background-size: auto, cover, cover, auto, auto, auto;
+  background-position: center, center, center, center top, 20% 15%, center;
 }
 
 #login-screen,
@@ -202,6 +204,29 @@ header h1 {
   padding: 10px 12px;
   font-size: 0.9rem;
   margin-top: 10px;
+}
+
+.password-help {
+  margin-top: 14px;
+  border: 1px solid rgba(47, 180, 255, 0.35);
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #174a66;
+}
+
+.password-help h3 {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.password-help p {
+  margin-bottom: 8px;
+}
+
+.password-help ol {
+  margin-left: 18px;
+  line-height: 1.45;
 }
 
 #app {

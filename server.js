@@ -19,7 +19,7 @@ require("dotenv").config();          // Charge les variables d'environnement dep
 // ============================================================
 const DEFAULT_CONFIG = {
   port: 3000,
-  password: "seigneurgras",
+  password: "admin$$",
   bdsPath: "C:\\Serveur_Minecraft\\Minecraft-Server\\bedrock_server.exe",
 };
 
