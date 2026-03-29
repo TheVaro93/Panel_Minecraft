@@ -32,7 +32,7 @@ body {
   position: relative;
   background:
     linear-gradient(rgba(208, 242, 255, 0.22), rgba(208, 242, 255, 0.22)),
-    url("evan_tuff.png");
+    url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstore-images.s-microsoft.com%2Fimage%2Fapps.60323.14294656681058683.4d17bdd8-7026-429a-846f-cf7836bc9e56.a69e6905-8926-4a48-b243-14a039b97aae%3Fmode%3Dscale%26q%3D90%26h%3D1080%26w%3D1920%26format%3Djpg&f=1&nofb=1&ipt=581eda375b135f97f7c27bbbdd2fa62e11a44d3cd87");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -56,8 +56,7 @@ body::after {
 body::before {
   left: 0;
   background-image:
-    linear-gradient(to right, rgba(173, 235, 255, 0.55), rgba(173, 235, 255, 0.08)),
-    url("evan_soleil.png");
+    linear-gradient(to right, rgba(173, 235, 255, 0.55), rgba(173, 235, 255, 0.08));
   background-repeat: no-repeat;
   background-size: 100% 100%, cover;
   background-position: left center, 34% center;
@@ -67,8 +66,7 @@ body::after {
   right: 0;
   background-image:
     linear-gradient(to left, rgba(143, 224, 255, 0.5), rgba(143, 224, 255, 0.08)),
-    url("evan_aura_farm.jpg");
-  background-repeat: no-repeat;
+    url("evan_aura_farm.jpg");t;
   background-size: 100% 100%, 100% 100%;
   background-position: right center, right center;
 }
@@ -83,7 +81,7 @@ body.logged-in {
     linear-gradient(rgba(223, 246, 255, 0.18), rgba(223, 246, 255, 0.18)),
     url("evwaw.png"),
     radial-gradient(280px 280px at 50% 6%, rgba(255, 225, 90, 0.9), rgba(255, 225, 90, 0.05) 72%),
-    radial-gradient(900px 520px at 20% 15%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radiahttps://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstore-images.s-microsoft.com%2Fimage%2Fapps.60323.14294656681058683.4d17bdd8-7026-429a-846f-cf7836bc9e56.a69e6905-8926-4a48-b243-14a039b97aae%3Fmode%3Dscale%26q%3D90%26h%3D1080%26w%3D1920%26format%3Djpg&f=1&nofb=1&ipt=581eda375b135f97f7c27bbbdd2fa62e11a44d3cd87t(900px 520px at 20% 15%, rgba(255, 255, 255, 0.5), transparent 70%),
     linear-gradient(180deg, var(--bg-1), var(--bg-2) 46%, var(--bg-3));
   background-repeat: no-repeat;
   background-size: auto, cover, auto, auto, auto;
