@@ -97,7 +97,7 @@ function startPlayerListPolling() {
   if (playerListInterval) return;
   playerListInterval = setInterval(() => {
     requestPlayerList();
-  }, 5000);
+  }, 60000);
 }
 
 function requestPlayerList() {
@@ -112,17 +112,35 @@ function extractPlayersFromListResponse(data) {
     return null;
   }
 
-  const line = cleaned
+  const lines = cleaned
     .split(/\r?\n/)
     .map((chunk) => chunk.trim())
-    .find((chunk) => /players online/i.test(chunk));
+    .filter(Boolean);
 
-  if (!line) return null;
+  const lineIndex = lines.findIndex((chunk) => /players online/i.test(chunk));
+  if (lineIndex < 0) return null;
+  const line = lines[lineIndex];
 
   const match = line.match(/players online:\s*(.*)$/i);
   if (!match) return null;
 
-  const rawNames = (match[1] || "").trim();
+  let rawNames = (match[1] || "").trim();
+
+  // Bedrock renvoie souvent les pseudos sur la ligne suivante (ou plusieurs lignes).
+  if (!rawNames) {
+    const collected = [];
+    for (let i = lineIndex + 1; i < lines.length; i += 1) {
+      const nextLine = lines[i];
+      const isAnotherLog = /^\[[^\]]+\]\s*(INFO|WARN|ERROR|DEBUG)?/i.test(nextLine);
+      const isCommandEcho = /^(list|help|stop)$/i.test(nextLine);
+      if (isAnotherLog || isCommandEcho || /players online/i.test(nextLine)) {
+        break;
+      }
+      collected.push(nextLine);
+    }
+    rawNames = collected.join(", ").trim();
+  }
+
   if (!rawNames) return [];
 
   return rawNames
