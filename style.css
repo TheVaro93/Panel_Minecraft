@@ -294,20 +294,45 @@ header h1 {
   display: flex;
   align-items: center;
   gap: 8px;
-  min-width: 300px;
+  flex: 1;
+  min-width: 460px;
+  max-width: 760px;
 }
 
 .raw-command-wrap input {
   flex: 1;
-  min-width: 150px;
+  min-width: 320px;
   background: rgba(8, 17, 28, 0.86);
   border: 1px solid var(--line);
   color: var(--text);
   border-radius: 11px;
-  padding: 10px 12px;
-  font-size: 0.88rem;
+  padding: 12px 14px;
+  font-size: 0.97rem;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cmd-help-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 14px;
+  border-radius: 11px;
+  border: 1px solid rgba(101, 178, 239, 0.45);
+  color: #bfe0fb;
+  text-decoration: none;
+  font-size: 0.87rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(14, 34, 54, 0.9), rgba(18, 45, 72, 0.92));
+  box-shadow: 0 10px 24px rgba(7, 16, 26, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.cmd-help-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(101, 178, 239, 0.7);
+  box-shadow: 0 12px 26px rgba(11, 27, 42, 0.55);
 }
 
 @keyframes blink {
@@ -512,43 +537,6 @@ button:hover {
   border-radius: 8px;
 }
 
-.header-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-action {
-  padding: 8px 16px;
-  background: rgba(65, 186, 244, 0.1);
-  border: 1px solid rgba(65, 186, 244, 0.42);
-  color: #9fcced;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-action:hover {
-  background: rgba(65, 186, 244, 0.24);
-  border-color: var(--primary);
-  box-shadow: 0 0 12px rgba(65, 186, 244, 0.34);
-}
-
-.btn-action.ban,
-.btn-action.kill {
-  background: rgba(255, 85, 108, 0.15);
-  border-color: rgba(255, 85, 108, 0.4);
-  color: var(--danger);
-}
-
-.btn-action.ban:hover,
-.btn-action.kill:hover {
-  background: rgba(255, 85, 108, 0.25);
-  border-color: var(--danger);
-  box-shadow: 0 0 12px rgba(255, 85, 108, 0.3);
-}
-
 #player-modal {
   display: none;
   position: fixed;
@@ -646,6 +634,15 @@ button:hover {
 
   .raw-command-wrap {
     min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .raw-command-wrap input {
+    min-width: 0;
+  }
+
+  .cmd-help-link {
     width: 100%;
   }
 
