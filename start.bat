@@ -3,6 +3,13 @@ title Serveur Minecraft + Panel
 
 echo Lancement du panel...
 
+:: Lancer playit.gg en parallele
+if exist "C:\Serveur_Minecraft\playit_gg\bin\playit.exe" (
+	start "playit" "C:\Serveur_Minecraft\playit_gg\bin\playit.exe"
+) else (
+	echo [WARN] playit.exe introuvable: C:\Serveur_Minecraft\playit_gg\bin\playit.exe
+)
+
 :: Installer les dependances si node_modules est absent
 if not exist node_modules (
 	echo Installation des dependances...
