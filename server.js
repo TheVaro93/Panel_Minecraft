@@ -76,6 +76,16 @@ const httpServer = http.createServer((req, res) => {
 let bdsPty = null; // On stocke le processus BDS ici
 let playerListInterval = null;
 
+function stripAnsiAndControls(input) {
+  return String(input || "")
+    // ANSI CSI sequences.
+    .replace(/\u001b\[[0-9;?]*[ -/]*[@-~]/g, "")
+    // Single-char ANSI sequences.
+    .replace(/\u001b[@-_]/g, "")
+    // Other non-printable controls except new lines and tabs.
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "");
+}
+
 function clearPlayerListInterval() {
   if (playerListInterval) {
     clearInterval(playerListInterval);
@@ -97,11 +107,12 @@ function requestPlayerList() {
 }
 
 function extractPlayersFromListResponse(data) {
-  if (!data || !data.toLowerCase().includes("players online")) {
+  const cleaned = stripAnsiAndControls(data);
+  if (!cleaned || !/players online/i.test(cleaned)) {
     return null;
   }
 
-  const line = data
+  const line = cleaned
     .split(/\r?\n/)
     .map((chunk) => chunk.trim())
     .find((chunk) => /players online/i.test(chunk));
@@ -116,7 +127,7 @@ function extractPlayersFromListResponse(data) {
 
   return rawNames
     .split(",")
-    .map((name) => name.trim())
+    .map((name) => stripAnsiAndControls(name).trim())
     .filter(Boolean);
 }
 
@@ -158,9 +169,12 @@ function startBDS() {
 
   // Quand BDS écrit quelque chose dans sa console → on le stocke
   bdsPty.onData((data) => {
-    broadcastLog(data); // On envoie à tous les navigateurs connectés
+    const cleanedData = stripAnsiAndControls(data);
+    if (cleanedData.trim()) {
+      broadcastLog(cleanedData); // On envoie à tous les navigateurs connectés
+    }
 
-    const players = extractPlayersFromListResponse(data);
+    const players = extractPlayersFromListResponse(cleanedData);
     if (players) {
       broadcastPlayerList(players);
     }
