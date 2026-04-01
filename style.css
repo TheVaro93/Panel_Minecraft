@@ -1,20 +1,20 @@
 :root {
-  --bg-1: #dff6ff;
-  --bg-2: #b3e9ff;
-  --bg-3: #86d9ff;
-  --surface: rgba(255, 255, 255, 0.78);
-  --surface-strong: rgba(255, 255, 255, 0.92);
-  --line: rgba(68, 170, 230, 0.35);
-  --line-soft: rgba(68, 170, 230, 0.2);
-  --text: #12344b;
-  --muted: #2f607d;
-  --primary: #2fb4ff;
-  --danger: #ff4f86;
-  --warning: #ffa94d;
-  --ok: #52cc84;
+  --bg-1: #070c13;
+  --bg-2: #0b1623;
+  --bg-3: #122236;
+  --surface: rgba(11, 20, 31, 0.78);
+  --surface-strong: rgba(11, 20, 31, 0.92);
+  --line: rgba(101, 178, 239, 0.3);
+  --line-soft: rgba(101, 178, 239, 0.18);
+  --text: #d8e7f7;
+  --muted: #8eabc8;
+  --primary: #4ab8ff;
+  --danger: #ff648f;
+  --warning: #ffb35f;
+  --ok: #5fd89a;
   --radius: 18px;
   --radius-sm: 12px;
-  --shadow: 0 20px 42px rgba(29, 136, 196, 0.2);
+  --shadow: 0 20px 42px rgba(2, 7, 15, 0.55);
   --font-title: "Trebuchet MS", "Segoe UI", sans-serif;
   --font-ui: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -25,20 +25,25 @@
   padding: 0;
 }
 
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   min-height: 100vh;
   color: var(--text);
   font-family: var(--font-ui);
   position: relative;
   background:
-    linear-gradient(rgba(208, 242, 255, 0.22), rgba(208, 242, 255, 0.22)),
+    linear-gradient(rgba(3, 8, 14, 0.78), rgba(3, 8, 14, 0.78)),
     url("image.png"),
     url("minecraftwpp.png");
   background-repeat: no-repeat;
   background-size: auto, cover, cover;
   background-position: center;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 body::before,
@@ -57,7 +62,7 @@ body::after {
 body::before {
   left: 0;
   background-image:
-    linear-gradient(to right, rgba(173, 235, 255, 0.55), rgba(173, 235, 255, 0.08));
+    linear-gradient(to right, rgba(9, 22, 35, 0.86), rgba(9, 22, 35, 0.08));
   background-repeat: no-repeat;
   background-size: 100% 100%, cover;
   background-position: left center, 34% center;
@@ -66,8 +71,8 @@ body::before {
 body::after {
   right: 0;
   background-image:
-    linear-gradient(to left, rgba(143, 224, 255, 0.5), rgba(143, 224, 255, 0.08)),
-    url("evan_aura_farm.jpg");t;
+    linear-gradient(to left, rgba(9, 22, 35, 0.82), rgba(9, 22, 35, 0.08)),
+    url("evan_aura_farm.jpg");
   background-size: 100% 100%, 100% 100%;
   background-position: right center, right center;
 }
@@ -79,11 +84,11 @@ body:not(.logged-in)::after {
 
 body.logged-in {
   background:
-    linear-gradient(rgba(223, 246, 255, 0.18), rgba(223, 246, 255, 0.18)),
+    linear-gradient(rgba(3, 8, 14, 0.72), rgba(3, 8, 14, 0.72)),
     url("image.png"),
     url("minecraftwpp.png"),
-    radial-gradient(280px 280px at 50% 6%, rgba(255, 225, 90, 0.9), rgba(255, 225, 90, 0.05) 72%),
-    radial-gradient(900px 520px at 20% 15%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(280px 280px at 50% 6%, rgba(53, 106, 161, 0.6), rgba(53, 106, 161, 0.05) 72%),
+    radial-gradient(900px 520px at 20% 15%, rgba(18, 34, 54, 0.45), transparent 70%),
     linear-gradient(180deg, var(--bg-1), var(--bg-2) 46%, var(--bg-3));
   background-repeat: no-repeat;
   background-size: auto, cover, cover, auto, auto, auto;
@@ -118,7 +123,7 @@ body.logged-in {
 
 .login-card {
   width: min(520px, 95vw);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 239, 250, 0.9));
+  background: linear-gradient(180deg, rgba(11, 20, 31, 0.95), rgba(14, 29, 44, 0.92));
   border: 1px solid var(--line);
   border-radius: 24px;
   box-shadow: var(--shadow);
@@ -146,8 +151,8 @@ body.logged-in {
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  background: rgba(116, 247, 240, 0.08);
-  color: #185b80;
+  background: rgba(74, 184, 255, 0.14);
+  color: #a4c8ea;
   font-size: 12px;
   letter-spacing: 0.5px;
   margin-bottom: 16px;
@@ -178,7 +183,7 @@ header h1 {
 
 .input-wrap input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(8, 17, 28, 0.88);
   border: 1px solid var(--line);
   color: var(--text);
   border-radius: var(--radius-sm);
@@ -246,7 +251,7 @@ header {
 
 header h1 {
   font-size: clamp(1.2rem, 2.6vw, 1.6rem);
-  color: #0f4f73;
+  color: #d4e6fa;
 }
 
 #status {
@@ -254,7 +259,7 @@ header h1 {
   align-items: center;
   gap: 9px;
   border: 1px solid var(--line-soft);
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(8, 17, 28, 0.74);
   border-radius: 999px;
   padding: 8px 12px;
   color: var(--muted);
@@ -295,7 +300,7 @@ header h1 {
 .raw-command-wrap input {
   flex: 1;
   min-width: 150px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(8, 17, 28, 0.86);
   border: 1px solid var(--line);
   color: var(--text);
   border-radius: 11px;
@@ -323,7 +328,7 @@ header h1 {
   font-size: 0.82rem;
   letter-spacing: 1.1px;
   text-transform: uppercase;
-  color: #0e5d86;
+  color: #9ec4e7;
   margin-bottom: 10px;
 }
 
@@ -344,20 +349,20 @@ header h1 {
 
 #no-players {
   text-align: center;
-  color: #12344b;
-  border: 1px dashed rgba(18, 52, 75, 0.22);
+  color: #d8e7f7;
+  border: 1px dashed rgba(116, 166, 214, 0.22);
   border-radius: 12px;
   padding: 18px 12px;
   min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(8, 17, 28, 0.3);
   font-size: 0.9rem;
 }
 
 .player-card {
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(8, 17, 28, 0.78);
   border: 1px solid var(--line-soft);
   border-radius: 12px;
   padding: 10px;
@@ -375,7 +380,7 @@ header h1 {
 }
 
 .player-name {
-  color: #084f76;
+  color: #b7d5f3;
   font-size: 0.9rem;
   word-break: break-word;
 }
@@ -405,8 +410,8 @@ header h1 {
   border: 1px solid var(--line-soft);
   border-radius: 999px;
   padding: 5px 9px;
-  color: #336e91;
-  background: rgba(255, 255, 255, 0.76);
+  color: #b3d0ec;
+  background: rgba(8, 17, 28, 0.76);
   font-size: 0.8rem;
 }
 
@@ -421,7 +426,7 @@ header h1 {
   font-family: "Consolas", "Courier New", monospace;
   font-size: 0.86rem;
   line-height: 1.62;
-  color: #513b7b;
+  color: #c9def3;
   margin-bottom: 11px;
 }
 
@@ -444,7 +449,7 @@ header h1 {
 .command-bar input {
   flex: 1;
   min-width: 220px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(8, 17, 28, 0.88);
   border: 1px solid var(--line);
   color: var(--text);
   border-radius: 11px;
@@ -458,7 +463,7 @@ button {
   border: none;
   border-radius: 11px;
   padding: 11px 14px;
-  color: #09111f;
+  color: #d9e9fa;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.14s ease, opacity 0.14s ease, box-shadow 0.14s ease;
@@ -470,13 +475,13 @@ button:hover {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #6ad1ff, #8adeff 45%, #ffe06b);
-  box-shadow: 0 8px 20px rgba(60, 177, 236, 0.32);
+  background: linear-gradient(135deg, #2b6ea1, #3f89c3 45%, #56a2e0);
+  box-shadow: 0 8px 20px rgba(19, 57, 89, 0.45);
 }
 
 .btn-ghost {
-  background: rgba(255, 255, 255, 0.65);
-  color: #2e6585;
+  background: rgba(8, 17, 28, 0.65);
+  color: #b0cfe9;
   border: 1px solid var(--line-soft);
 }
 
@@ -514,9 +519,9 @@ button:hover {
 
 .btn-action {
   padding: 8px 16px;
-  background: rgba(65, 186, 244, 0.14);
+  background: rgba(65, 186, 244, 0.1);
   border: 1px solid rgba(65, 186, 244, 0.42);
-  color: #0a6c98;
+  color: #9fcced;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
@@ -562,7 +567,7 @@ button:hover {
 
 .modal-content {
   position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(231, 247, 255, 0.95));
+  background: linear-gradient(180deg, rgba(11, 20, 31, 0.98), rgba(14, 29, 44, 0.95));
   border: 1px solid var(--line);
   border-radius: 18px;
   padding: 28px;
@@ -600,9 +605,9 @@ button:hover {
 
 .player-select-btn {
   padding: 10px 14px;
-  background: rgba(116, 247, 240, 0.1);
+  background: rgba(74, 184, 255, 0.12);
   border: 1px solid rgba(116, 247, 240, 0.3);
-  color: #11638f;
+  color: #c7ddf2;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
@@ -617,10 +622,6 @@ button:hover {
 }
 
 @media (max-width: 980px) {
-  body {
-    overflow: auto;
-  }
-
   body::before,
   body::after {
     display: none;
