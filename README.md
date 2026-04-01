@@ -20,6 +20,16 @@ Le projet est composé de:
 - un serveur WebSocket pour l'authentification et les commandes en direct
 - un frontend HTML/CSS/JS avec écran de connexion et console live
 
+### Captures
+
+#### Écran de connexion
+
+![Écran de connexion](login.png)
+
+#### Dashboard
+
+![Dashboard](dashboard.png)
+
 ---
 
 ## Fonctionnalités
@@ -27,8 +37,8 @@ Le projet est composé de:
 - Authentification simple par mot de passe
 - Console live (stream des logs BDS)
 - Détection des connexions/déconnexions joueurs
-- Liste des joueurs en ligne
-- Actions admin rapides: `Kick`, `Ban`, `Kill`
+- Liste des joueurs en ligne (rafraîchie automatiquement via `list` toutes les 60 secondes)
+- Actions admin rapides sur chaque carte joueur: `Kick`, `Ban`, `Kill`
 - Envoi de commandes brutes (console)
 - Message global (`say`) depuis la barre de commande
 
@@ -86,7 +96,10 @@ Puis ouvrir:
 
 Option B
 
-- Lancer `start.bat` pour démarrer le serveur Node puis ouvrir automatiquement le navigateur.
+- Lancer `start.bat` pour:
+	- démarrer `playit.exe` (si présent dans `C:\Serveur_Minecraft\playit_gg\bin\playit.exe`)
+	- démarrer le serveur Node
+	- ouvrir automatiquement le navigateur sur `http://localhost:3000`
 
 ---
 
@@ -98,7 +111,7 @@ Option B
 4. Utiliser:
 - la barre principale pour envoyer un message global (`say`)
 - la commande brute pour exécuter n'importe quelle commande Bedrock
-- les boutons d'action pour `Kick` / `Ban` / `Kill`
+- les boutons d'action `Kick` / `Ban` / `Kill` directement sur chaque joueur dans la liste
 
 ---
 
@@ -121,13 +134,17 @@ Option B
 
 ## Sécurité
 
-Le backend lit obligatoirement la configuration depuis `.env`.
+Le backend peut lire la configuration depuis `.env`, mais il garde aussi des valeurs par défaut si les variables ne sont pas définies.
 
 Déjà appliqué dans ce projet:
 
 - mot de passe admin via variable d'environnement (`PANEL_PASSWORD`)
 - chemin BDS via variable d'environnement (`BDS_PATH`)
 - `.env` ignoré par Git
+
+Important:
+
+- en absence de `.env`, des valeurs par défaut sont utilisées (dont un mot de passe par défaut) ; pour la prod, définis toujours tes variables d'environnement.
 
 À mettre en place selon ton infra:
 
