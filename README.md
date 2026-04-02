@@ -46,7 +46,7 @@ Le projet est composé de:
 
 ## Prérequis
 
-- Windows
+- Windows, pour utiliser le .bat (optionnel mais plus simple)
 - Node.js 12+ (obligatoire)
 - Télécharger Node.js: [https://nodejs.org/en/download](https://nodejs.org/en/download)
 - Un serveur Minecraft Bedrock fonctionnel (`bedrock_server.exe`)
@@ -85,7 +85,7 @@ BDS_PATH=C:\\Serveur_Minecraft\\Minecraft-Server\\bedrock_server.exe
 
 ## Lancer le projet
 
-Option A (recommandée)
+Option A 
 
 ```bash
 npm run start
@@ -95,7 +95,7 @@ Puis ouvrir:
 
 - `http://localhost:3000`
 
-Option B
+Option B (uniquement sur Windows)
 
 - Lancer `start.bat` pour:
 	- démarrer `playit.exe` (si présent dans `C:\Serveur_Minecraft\playit_gg\bin\playit.exe`)
