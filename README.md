@@ -47,7 +47,8 @@ Le projet est composé de:
 ## Prérequis
 
 - Windows
-- Node.js 18+
+- Node.js 12+ (obligatoire)
+- Télécharger Node.js: [https://nodejs.org/en/download](https://nodejs.org/en/download)
 - Un serveur Minecraft Bedrock fonctionnel (`bedrock_server.exe`)
 
 ---
