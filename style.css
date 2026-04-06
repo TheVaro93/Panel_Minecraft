@@ -86,7 +86,7 @@ body.logged-in {
   background:
     linear-gradient(rgba(3, 8, 14, 0.72), rgba(3, 8, 14, 0.72)),
     url("image.png"),
-    url("minecraftwpp.png"),
+    url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstore-images.s-microsoft.com%2Fimage%2Fapps.60323.14294656681058683.4d17bdd8-7026-429a-846f-cf7836bc9e56.a69e6905-8926-4a48-b243-14a039b97aae%3Fmode%3Dscale%26q%3D90%26h%3D1080%26w%3D1920%26format%3Djpg&f=1&nofb=1&ipt=fbfd21199c5536c87a908ebb7b26fac12808f0b1500bdeee5d317c2aa80fa215"),
     radial-gradient(280px 280px at 50% 6%, rgba(53, 106, 161, 0.6), rgba(53, 106, 161, 0.05) 72%),
     radial-gradient(900px 520px at 20% 15%, rgba(18, 34, 54, 0.45), transparent 70%),
     linear-gradient(180deg, var(--bg-1), var(--bg-2) 46%, var(--bg-3));
